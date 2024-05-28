@@ -1,0 +1,38 @@
+[
+  {
+    "TeamName": "Team A",
+    "Score": 30
+  },
+  {
+    "TeamName": "Team B",
+    "Score": 28
+  },
+  {
+    "TeamName": "Team C",
+    "Score": 25
+  },
+  {
+    "TeamName": "Team D",
+    "Score": 22
+  },
+  {
+    "TeamName": "Team E",
+    "Score": 20
+  },
+  {
+    "TeamName": "Team F",
+    "Score": 18
+  },
+  {
+    "TeamName": "Team G",
+    "Score": 15
+  },
+  {
+    "TeamName": "Team H",
+    "Score": 12
+  },
+  {
+    "TeamName": "Team I",
+    "Score": 10
+  }
+]
