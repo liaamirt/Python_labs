@@ -1,0 +1,1 @@
+GDP per capita (current US$),NY.GDP.PCAP.CD,Ukraine,UKR,3661.45776367188
