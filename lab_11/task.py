@@ -1,36 +1,50 @@
 import csv
 
-try:
-    with open('DataBase.csv', 'r', newline='') as file:
-        reader = csv.DictReader(file, delimiter=';')
+def read_csv(file_path):
+    data = []
+    try:
+        with open(file_path, 'r', newline='', encoding='utf-8-sig') as csvfile:
+            csvreader = csv.reader(csvfile)
+            for row in csvreader:
+                data.append(row)
+        return data
+    except FileNotFoundError:
+        print(f"Файл '{file_path}' не знайдено.")
+        return None
+    except Exception as e:
+        print(f"Виникла помилка при зчитуванні файлу '{file_path}': {e}")
+        return None
 
-        print("GDP per capita for Ukraine (1991-2019):")
-        for row in reader:
-            if row['Country Name'] == 'Ukraine':
-                for year in range(1991, 2020):
-                    col_name = f"{year} [YR{year}]"
-                    print(f"{year}: {row[col_name]}")
-                break 
+def write_csv(data, file_path):
+    try:
+        with open(file_path, 'w', newline='', encoding='utf-8') as csvfile:
+            csvwriter = csv.writer(csvfile)
+            csvwriter.writerows(data)
+        print(f"Дані було успішно записано у файл '{file_path}'.")
+    except Exception as e:
+        print(f"Виникла помилка при записі у файл '{file_path}': {e}")
 
-    with open('DataBase.csv', 'r', newline='') as file:
-        reader = csv.DictReader(file, delimiter=';')
-        data = list(reader) 
+def main():
+    input_file = 'dataBase.csv'
+    output_file = 'output.csv'
 
-    gdp_values = [float(data[0][f"{year} [YR{year}]"]) for year in range(1991, 2020)]
+    data = read_csv(input_file)
+    if data is None:
+        return
+    
+    print("Вміст CSV файлу:")
+    for row in data:
+        print(row)
 
-    min_gdp = min(gdp_values)
-    max_gdp = max(gdp_values)
+    countries = input("Введіть назви країн через кому (наприклад, Ukraine, Germany): ").split(',')
 
-    print(f"\nMin GDP per capita: {min_gdp}")
-    print(f"Max GDP per capita: {max_gdp}")
+    filtered_data = []
+    for row in data:
+        if row[2] in countries:
+            filtered_data.append(row)
 
-    with open('GDP_results.csv', 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(["Statistic", "Value"])
-        writer.writerow(["Min GDP per capita", min_gdp])
-        writer.writerow(["Max GDP per capita", max_gdp])
+    write_csv(filtered_data, output_file)
 
-except FileNotFoundError:
-    print("File 'DataBase.csv' not found.")
-except Exception as e:
-    print(f"An error occurred: {e}")
+if __name__ == "__main__":
+    main()
+
